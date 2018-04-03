@@ -1,0 +1,49 @@
+<!-- <div class="half_width f_left n_margin">
+  <img src="assets/images/thebg.jpg" width="100%">
+</div> -->
+
+<!--
+<header>
+    
+</header>
+-->
+
+<div class="half_width f_left n_margin" id="h_left">
+    <a href="#"><img class="the_logo" src="assets/images/igain_white.png" alt="logo" width="100"></a>
+  <div class="white_texts texts_c">
+    <h1>Welcome to IGAIN Africa</h1>
+    <p>
+      this is the best peer to peer platform online.
+    </p>
+  </div>
+</div>
+
+<div class="half_width f_right n_margin form_box" id="h_right">
+
+    <form action="/action_page.php" >
+    
+      <div class="container">
+        
+            <h1>Sign In</h1>
+            <p>Please fill in this form to login.</p>
+            <hr>
+        <label for="uname"><b>Number</b></label>
+        <input type="text" placeholder="Enter Phone number" name="number" required [(ngModel)]="number">
+    
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" [(ngModel)]="password" required>
+            
+        <button (click)=login() >Login</button>
+        <!-- <label>
+          <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label> -->
+      </div>
+    
+      <div class="container" style="">
+        <span>Don't have an account <a [routerLink]="['/sign-up']" >Sign Up</a></span>
+        <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
+      </div>
+    </form>
+    </div>
+
+   

@@ -1,0 +1,200 @@
+body {font-family: Arial, Helvetica, sans-serif;
+    background: #f7f7f9;
+    background-size: cover;
+    font-size: 14px;
+}
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+
+.container {
+    width: 100%;
+}
+
+
+form {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+#h_left {
+    background: #222946;
+    height: 100%;
+}
+
+#h_right {
+    background: white;
+    height: 100%;
+}
+
+
+input {
+    outline: 0;
+    border-width: 0 0 1px 0;
+    border-color: #ff7905;
+  }
+  input:focus {
+    border-color: #222946;
+  }
+
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+}
+
+select {
+    box-shadow: none !important;
+    outline: 0;
+    border-width: 0 0 1px 0 !important;
+    border-color: #ff7905 !important;
+    border-radius: 0 !important;
+}
+
+.form-control {
+    border:0px ;
+}
+
+
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+    background: red !important;
+}
+
+.white_texts {
+    color: white;
+}
+
+.texts_c {
+    text-align: center;
+}
+
+
+
+.the_logo {
+    padding: 15px;
+    display: block;
+}
+
+button {
+    background-color: #ff7905;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.btn_a {
+    background-color: #222946 !important;
+    color: white !important;
+    padding: 14px 20px !important;
+    border: none !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    font-weight: 100 !important;
+    height: auto !important;
+    font-size: 16px !important;
+    border: 2px solid white !important;
+}
+
+.btn_a:hover {
+    background: white !important;
+    color: #222946 !important;
+    border: 2px solid #222946 !important;
+}
+
+header{
+    background: #f7f7f9;
+}
+
+
+select {
+    padding: 0 20px !important;
+}
+
+a {
+    color:#222946 !important;
+    text-decoration: underline;
+}
+
+#footer {
+    text-align: center;
+    background: #f7f7f9;
+    padding: 15px;
+    height: 50px;
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    left: 0;
+    font-size: 10px;
+}
+
+#footer a{
+    font-size: 10px;
+    margin: 10px;
+}
+
+#footer span {
+    white-space: nowrap;
+}
+
+
+body, html {
+    height: 100%;
+}
+
+
+
+
+
+
+/* KOJO'S STYLES   */
+.half_width {
+    width: 50%;
+}
+
+.f_right {
+    float: right;
+}
+
+.f_left {
+    float: left;
+}
+.n_margin {
+    margin: 0;
+}
+
+.form_box {
+    padding: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 765px) {
+    .half_width {
+        width: 100% !important;
+        margin: 0 auto !important;
+        float: none !important;
+        padding: 20px;
+    }
+    .form_box {
+        padding: 0 !important;
+    }
+    .investbox{
+        left: 50% !important;
+    }
+}

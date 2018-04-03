@@ -1,0 +1,17 @@
+<div id="overlay"></div>
+<div class="investbox">
+    <h1><i class="fa fa-diamond fa-fw"></i> Invest</h1><br>
+    <form>
+        <select class="form-control dropdown-select" [(ngModel)]="investmentPackage" id="investmentPackage" name="investmentPackage">
+                <option *ngFor="let investpackage of investmentPackages" [value]="investpackage.id"> {{investpackage.name}} </option>
+
+          </select>
+        <input class="btn_a" style="" (click)="invest()" type="submit" value="Invest">
+    </form>
+    &nbsp;
+    <p></p>
+    <p></p>
+    &nbsp;
+    <a href="#">View Activity</a>
+    &nbsp;
+</div>

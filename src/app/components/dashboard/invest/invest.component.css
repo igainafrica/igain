@@ -1,0 +1,117 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: #f7f7f9 !important;
+    background-size: cover;
+    font-family: 'Open Sans', sans-serif;
+    z-index: -10;
+}
+
+body, html {
+    background: #f7f7f9 !important;
+}
+
+#overlay{
+    position: absolute;
+    background-color: transparent;
+    z-index: -5;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+}
+
+.investbox{
+    width: 320px;
+    height: 360px;
+    color: #000;
+    top: 50%;
+    left: 60%;
+    padding: 60px 30px;
+    position: absolute;
+    transform: translate(-50%,  -50%);
+    box-sizing: border-box;
+    box-shadow: 0px 0px 5px #ececec;
+}
+h1{
+    color: #fff;
+    margin: 0;
+    padding: 0 0 0px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.investbox p {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: 13px;
+}
+ 
+.investbox input{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.investbox input[type="text"], input[type="password"], select{
+    border: none;
+    border-bottom: 1px solid #bdc3c7;
+    outline: none;
+    height: 30px;
+    font-size: 16px;
+    opacity: 1;
+    margin-bottom: 32px;
+    color: #000;
+}
+
+
+.investbox input[type="submit"]{
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #2ecc71;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.investbox input[type="submit"]:hover {
+    cursor: pointer;
+    background: #27ae60;
+    color: #fff;
+    
+}
+
+.investbox a {
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+    opacity: 0.8;
+}
+
+.investbox a:hover {
+    color: #fff;
+    opacity: 1;
+}
+
+#text-account {
+    font-size: 14px;
+    color: #fff;
+    opacity: 0.4;
+}
+
+ #create-account:hover {
+    text-decoration: underline;
+    font-weight: bold;
+} 
+
+
+.investbox {
+    background-color: #fff;
+}
+
+form {
+    width: 100%;
+}

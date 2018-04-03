@@ -1,0 +1,623 @@
+{
+    "GENERAL_INFO": [
+        "Users sign in with their phone number and password",
+        "Auth-Token expires in 28 days"
+    ],
+    "authentication": {
+        "registration": {
+            "description": "Register a user with the system",
+            "request": {
+                "contentType": "application/json",
+                "httpMethod": "POST",
+                "url": "/auth/register/",
+                "body": {
+                    "data": {
+                        "name": "string",
+                        "photoUrl": "string",
+                        "password": "string",
+                        "momoNumber": "string",
+                        "momoChannel": "string"
+                    }
+                }
+            },
+            "response": {
+                "statusCode": 201,
+                "body": {
+                    "authToken": "string",
+                    "id": "string" // the id of the user in the database
+                }
+            },
+            "errors": {
+                "430": "Specified momoNumber is already registered",
+                "440": "Weak password",
+            }
+        },
+        "sign-in": {
+            "description": "Sign in a user and get an auth token",
+            "request": {
+                "contentType": "application/json",
+                "httpMethod": "GET",
+                "url": "/auth/sign-in/",
+                "body": {
+                    "data": {
+                        "momoNumber": "string",
+                        "password": "string"
+                    }
+                }
+            },
+            "response": {
+                "statusCode": 200,
+                "body": {
+                    "authToken": "string",
+                    "userData": {
+                        "id": "string",
+                        "name": "string",
+                        "photoUrl": "string",
+                        "momoNumber": "string",
+                        "momoChannel": "string",
+                        "isAdmin": "boolean"
+                    }
+                },
+                "errors": {
+                    "401": "Wrong credentials"
+                }
+            }
+        },
+        "myInfo": {
+            "Auth Required": true,
+            "description": "Get the info of the logged in user",
+            "request": {
+                "contentType": "application/json",
+                "httpMethod": "GET",
+                "url": "/auth/myinfo/",
+                "body": {} // the body is empty
+            },
+            "response": {
+                "contentType": "application/json",
+                "statusCode": 200,
+                "body": {
+                    "data": {
+                        "id": "string",
+                        "name": "string",
+                        "photoUrl": "string",
+                        "momoNumber": "string",
+                        "momoChannel": "string",
+                        "isAdmin": "boolean"
+                    }
+                },
+                "errors":{
+                    "410":"User account has been disabled or does not exist"
+                }
+            }
+        },
+        "change password": {
+            "Auth Required": true,
+            "descrption": "Change the password of the currently logged in user",
+            "request": {
+                "contentType": "application/json",
+                "httpMethod": "PUT",
+                "url": "/auth/change-password/",
+                "body": {
+                    "new_password": "string",
+                    // we will still want to verify the user, using his email and password
+                    "email": "string",
+                    "old_password": "string",
+                }
+            },
+            "response": {
+                "contentType": "application/json",
+                "statusCode": 201,
+                "body": {
+                    "authToken": "string"
+                },
+                "errors": {
+                    "401": "Email or password incorrect"
+                }
+            },
+        },
+        "update my info": {
+            "Auth Required": true,
+            "description": "Update the info of the currently logged in user",
+            "request": {
+                "contentType": "application/json",
+                "httpMethod": "PUT",
+                "url": "/auth/update-myinfo/",
+                "body": {
+                    "data": {
+                        "username": "string",
+                        "photoUrl": "string",
+                        "momoNumber": "string",
+                        "momoChannel": "string",
+                    }
+                }
+            },
+            "response": {
+                "contentType": "application/json",
+                "statusCode": 201,
+                "body": {
+                    "message": "success"
+                },
+                "errors": {
+                    "400": "There were one or more invalid fields",
+                    "410": "Specified username is already in use",
+                    "430": "Specified momoNumber is already registered"
+                }
+            }
+        }
+    },
+    "investments": {
+        "add investment": {
+            "authentication required": true,
+            "description": "Add a new investment for the current user",
+            "request": {
+                "contentType": "application/json",
+                "httpMethod": "POST",
+                "url": "/investments",
+                "body": {
+                    "investmentTypeId": "string"
+                }
+            },
+            "response": {
+                "contentType": "application/json",
+                "statusCode": 201,
+                "body": {
+                    "data": {
+                        "id": "string",
+                        "amountInvested": "number",
+                        "amountExpected": "number",
+                        "fee": "number",
+                        "status": {
+                            "donationsCompleted": "boolean",
+                            "pairingsCompleted": "boolean"
+                        },
+                        "activation": {
+                            "activated": false,
+                            "date": null,
+                            "transactionId": null
+                        },
+                        "date": "date"
+                    }
+                },
+                "errors": [
+                    "Authentication Error",
+                    "Unauthorised Access Error",
+                ]
+            }
+        },
+        "activate investment": {
+            "authentication required": true,
+            "description": "Pay the fee associated to an investment. This activates the investment",
+            "request": {
+                "contentType": "application/json",
+                "httpMethod": "PUT",
+                "url": "/investments/<investmentId>/activate",
+                "body": {} // empty body
+            },
+            "response": {
+                "contentType": "application/json",
+                "statusCode": 201,
+                "body": {
+                    "message": "success"
+                },
+                "errors": [
+                    "Authentication Error",
+                    "Unauthorised Access Error"
+                ]
+            }
+        },
+        "get user investments": {
+            "authentication required": true,
+            "description": "Get the investments of the current user",
+            "request": {
+                "url": "/investments",
+                "httpMethod": "GET",
+                "queryString": {
+                    "page": "integer",
+                    "pageSize": "integer"
+                }
+            },
+            "response": {
+                "statusCode": 200,
+                "contentType": "application/json",
+                "body": {
+                    "data": [
+                        {
+                            "id": "string",
+                            "amountInvested": "number",
+                            "amountExpected": "number",
+                            "fee": "number",
+                            "status": {
+                                "donationsCompleted": "boolean",
+                                "pairingsCompleted": "boolean"
+                            },
+                            "activation": {
+                                "activated": "boolean",
+                                "date": "date", // can be null
+                                "transactionId": "string" // can be null
+                            },
+                            "donateTo": [
+                                {
+                                    "id": "string",
+                                    "from": {
+                                        "user": {
+                                            "id": "string",
+                                            "username": "string"
+                                        },
+                                        "investment": "string"
+                                    },
+                                    "to": {
+                                        "user": {
+                                            "id": "string",
+                                            "username": "string"
+                                        },
+                                        "investment": "string"
+                                    },
+                                    "amount": "number",
+                                    "payment": {
+                                        "paid": "boolean",
+                                        "date": "date",
+                                        "momoTransactionId": "string"
+                                    }
+                                }
+                            ],
+                            "receiveFrom": [
+                                {
+                                    "id": "string",
+                                    "from": {
+                                        "user": {
+                                            "id": "string",
+                                            "username": "string"
+                                        },
+                                        "investment": "string"
+                                    },
+                                    "to": {
+                                        "user": {
+                                            "id": "string",
+                                            "username": "string"
+                                        },
+                                        "investment": "string"
+                                    },
+                                    "amount": "number",
+                                    "payment": {
+                                        "paid": "boolean",
+                                        "date": "date",
+                                        "momoTransactionId": "string"
+                                    }
+                                }
+                            ],
+                            "date": "date"
+                        }
+                    ]
+                },
+                "errors": [
+                    "Authentication Error",
+                    "Unauthorised Access Error"
+                ]
+            }
+        },
+        "get all investments": {
+            "authentication required": true, // can be accessed by ADMINS ONLY
+            "description": "Get the investments in the system",
+            "request": {
+                "url": "/investments/all",
+                "httpMethod": "GET",
+                "queryString": {
+                    "page": "integer",
+                    "pageSize": "integer"
+                }
+            },
+            "response": {
+                "statusCode": 200,
+                "contentType": "application/json",
+                "body": {
+                    "data": [
+                        {
+                            "id": "string",
+                            "amountInvested": "number",
+                            "amountExpected": "number",
+                            "fee": "number",
+                            "status": {
+                                "donationsCompleted": "boolean",
+                                "pairingsCompleted": "boolean"
+                            },
+                            "activation": {
+                                "activated": "boolean",
+                                "date": "date", // can be null
+                                "transactionId": "string" // can be null
+                            },
+                            "donateTo": [
+                                {
+                                    "id": "string",
+                                    "from": {
+                                        "user": {
+                                            "id": "string",
+                                            "username": "string"
+                                        },
+                                        "investment": "string"
+                                    },
+                                    "to": {
+                                        "user": {
+                                            "id": "string",
+                                            "username": "string"
+                                        },
+                                        "investment": "string"
+                                    },
+                                    "amount": "number",
+                                    "payment": {
+                                        "paid": "boolean",
+                                        "date": "date",
+                                        "momoTransactionId": "string"
+                                    }
+                                }
+                            ],
+                            "receiveFrom": [
+                                {
+                                    "id": "string",
+                                    "from": {
+                                        "user": {
+                                            "id": "string",
+                                            "username": "string"
+                                        },
+                                        "investment": "string"
+                                    },
+                                    "to": {
+                                        "user": {
+                                            "id": "string",
+                                            "username": "string"
+                                        },
+                                        "investment": "string"
+                                    },
+                                    "amount": "number",
+                                    "payment": {
+                                        "paid": "boolean",
+                                        "date": "date",
+                                        "momoTransactionId": "string"
+                                    }
+                                }
+                            ],
+                            "date": "date"
+                        }
+                    ]
+                },
+                "errors": [
+                    "Authentication Error",
+                    "Unauthorised Access Error"
+                ]
+            }
+        },
+        "get all investment types": {
+            "authentication required": false,
+            "description": "Get the various investment packages that are supported by the system",
+            "request": {
+                "url": "/investments/types",
+                "httpMethod": "GET"
+            },
+            "response": {
+                "statusCode": 200,
+                "contentType": "application/json",
+                "body": {
+                    "data": [
+                        {
+                            "id": "string",
+                            "name": "string",
+                            "description": "string",
+                            "amount": "number", // the amount the user will invest
+                            "returns": "number", // what the user will get in return
+                            "fee": "number", // the fee associated to the investment. This is what will come to us
+                            "isActive": "boolean"
+                        }
+                    ]
+                },
+                "errors": {}
+            }
+        }
+    },
+    "donations": {
+        "pay up a donation": {
+            "authentication required": true,
+            "description": "Pay up the money for a donation",
+            "request": {
+                "url": "/donations/<donationId>",
+                "contentType": "application/json",
+                "httpMethod": "PUT",
+                "body": {} // yes, empty
+            },
+            "response": {
+                "statusCode": 201,
+                "contentType": "application/json",
+                "body": {
+                    "message": "success"
+                },
+                "errors": [
+                    "Authentication Error",
+                    "Unauthorised Access Error"
+                ]
+            }
+        },
+        "get user associated donations": {
+            "authentication required": true,
+            "description": "Get the donations involving the current user. This means those ones where the user is the donor or the recipient",
+            "request": {
+                "url": "/donations",
+                "contentType": "application/json",
+                "httpMethod": "GET",
+                "queryString": {
+                    "page": "integer",
+                    "pageSize": "integer"
+                }
+            },
+            "response": {
+                "statusCode": 200,
+                "contentType": "application/json",
+                "body": {
+                    "data": [
+                        {
+                            "id": "string",
+                            "from": {
+                                "user": {
+                                    "id": "string",
+                                    "username": "string"
+                                },
+                                "investment": "string"
+                            },
+                            "to": {
+                                "user": {
+                                    "id": "string",
+                                    "username": "string"
+                                },
+                                "investment": "string"
+                            },
+                            "amount": "number",
+                            "payment": {
+                                "paid": "boolean",
+                                "momoTransactionId": "string",
+                                "date": "date"
+                            },
+                            "date": "date"
+                        }
+                    ]
+                },
+                "errors": [
+                    "Authentication Error",
+                    "Unauthorised Access Error"
+                ]
+            }
+        },
+        "get all donations": {
+            "authentication required": true, // can only be accessed by ADMINS ONLY
+            "description": "Get the donations in the system",
+            "request": {
+                "url": "/donations/all",
+                "contentType": "application/json",
+                "httpMethod": "GET",
+                "queryString": {
+                    "page": "integer",
+                    "pageSize": "integer"
+                }
+            },
+            "response": {
+                "statusCode": 200,
+                "contentType": "application/json",
+                "body": {
+                    "data": [
+                        {
+                            "id": "string",
+                            "from": {
+                                "user": {
+                                    "id": "string",
+                                    "username": "string"
+                                },
+                                "investment": "string"
+                            },
+                            "to": {
+                                "user": {
+                                    "id": "string",
+                                    "username": "string"
+                                },
+                                "investment": "string"
+                            },
+                            "amount": "number",
+                            "payment": {
+                                "paid": "boolean",
+                                "momoTransactionId": "string",
+                                "date": "date"
+                            },
+                            "date": "date"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "testimonies": {
+        "get testimonies": {
+            "authentication required": false,
+            "description": "Get the testimonies made by users of the system",
+            "request": {
+                "url": "/testimonies",
+                "contentType": "application/json",
+                "httpMethod": "GET",
+                "queryString": {
+                    "page": "integer",
+                    "pageSize": "integer"
+                }
+            },
+            "response": {
+                "statusCode": 200,
+                "contentType": "application/json",
+                "body": {
+                    "data": [
+                        {
+                            "user": {
+                                "id": "string",
+                                "username": "string"
+                            },
+                            "comment": "string",
+                            "numStars": "integer",
+                            "date": "date"
+                        }
+                    ]
+                }
+            }
+        },
+        "add testimony": {
+            "authentication required": true,
+            "description": "Add a testimony for the current user",
+            "request": {
+                "url": "/testimonies",
+                "contentType": "application/json",
+                "httpMethod": "POST",
+                "body": {
+                    "investment": "string",
+                    "comment": "string",
+                    "numStars": {
+                        "type": "integer",
+                        "optional": true
+                    },
+                }
+            },
+            "response": {
+                "statusCode": 201,
+                "contentType": "application/json",
+                "body": {
+                    "data": {
+                        "id": "string",
+                        "investment": "string",
+                        "comment": "string",
+                        "numStars": "integer",
+                        "date": "date"
+                    }
+                },
+                "errors": [
+                    "Authentication Error"
+                ]
+            }
+        }
+    },
+    "scheduler tasks": {
+        "description": "Endpoints to the tasks that we've scheduled in ATrigger.",
+        "pair investments": {
+            "description": "Pair up investments to others",
+            "request": {
+                "url": "/schedulers/pairup-investments/eb7e3be33e5d4a748a68ae98a5789bc4/4008c36047294223a8402c730b10aa33",
+                "httpMethod": "POST"
+            },
+            "response": {
+                "statusCode": 200,
+                "body": {}
+            }
+        },
+        "send donations notifications": {
+            "description": "For donations that users have not paid up, send then reminders in emails",
+            "request": {
+                "url": "/schedulers/set-donations-completed/2379f9a97046463e88ab39f83d4d8a84/bff31c3318504537ab506a171d72bf63"
+            }
+        },
+        "update donations completed": {
+            "description": "Check investments for which the investor has made all donations and mark them as 'donationsCompleted'",
+            "request": {
+                "url": "/schedulers/send-donations-notifications/1164a45f6ddf4bcfa76e2b5c3a6ec99a/4e3c88af06e841ef8bf8788e0cdc5286"
+            }
+        }
+    }
+}

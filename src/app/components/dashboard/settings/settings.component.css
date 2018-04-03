@@ -1,0 +1,41 @@
+
+
+.settings-wrapper {
+    max-width: 400px;
+    margin: 0 auto;
+    color: #000;
+    top: 50%;
+    left: 60%;
+    padding: 60px 30px;
+    position: absolute;
+    transform: translate(-50%,  -50%);
+    box-sizing: border-box;
+    box-shadow: 0px 0px 5px #ececec;
+    background: white;
+}
+
+.profile-image{
+    height: 96px;
+    width: 96px;
+    background: red;
+    margin: 0 auto;
+}
+
+button {
+    display: inline;
+    width: fit-content;
+    margin: 0;
+    background: none;
+    color: #222946;
+    text-decoration: underline;
+}
+
+.s_profile {
+    background-color: #222946 !important;
+    color: white !Important;
+    text-decoration: none;
+}
+
+#action_buttons {
+    text-align: center;
+}
